@@ -1,1 +1,57 @@
-// TODO
+.contentContainer {
+    color: #fff;
+    height: 108px;
+    padding: 0 30%;
+
+    h2 {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+
+        &:hover {
+            cursor: pointer;
+            color: var(--pink);
+          }
+    }
+
+    p {
+        margin-bottom: 1.5625rem;
+        color: var(--gray-100);
+        font-size: 1.125rem;
+        line-height: 22px;
+        text-align: justify;
+      }
+    
+      p + div {
+        color: var(--gray-200);
+        span + span {
+          margin-left: 2rem;
+          
+        }
+    
+        span > span {
+            margin-left: 0.5rem;
+            
+        }
+      }
+    
+      > div {
+        & + div {
+          margin-top: 3rem;
+        }
+      }
+}
+
+.innerContent {
+    display: flex;
+    gap: 24px;
+
+    div {
+        display: flex;
+        align-items: center;
+    }
+    span {
+        margin-left: 0.5rem;
+        font-size: 0.875rem;
+        color: var(--gray-100)
+    }
+}
