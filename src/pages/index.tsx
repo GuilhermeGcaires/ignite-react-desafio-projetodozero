@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 import * as Prismic from '@prismicio/client'
-import { RichText } from 'prismic-dom';
 import { FiCalendar, FiUser } from 'react-icons/fi';
 
 import Link from 'next/link';
@@ -12,7 +11,7 @@ import Link from 'next/link';
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 
-import { prismicio } from '../services/prismic';
+import { getPrismicClient } from '../services/prismic';
 
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
@@ -41,10 +40,9 @@ interface HomeProps {
 export default function Home({ postsPagination }: HomeProps) {
   const [loadedPosts, setLoadedPosts] = useState(postsPagination.results);
   const [nextPage, setNextPage] = useState(postsPagination.next_page);
-  console.log(postsPagination)
 
   async function handleLoadMore(): Promise<void> {
-    const prismic = prismicio;
+    const prismic = getPrismicClient();
     
     const postsResponse = await fetch(nextPage)
     .then(response => response.json())
@@ -110,9 +108,8 @@ export default function Home({ postsPagination }: HomeProps) {
 
 
 export const getStaticProps: GetStaticProps = async () => {
-  const prismic = prismicio;
+  const prismic = getPrismicClient();
   const posts = await prismic.getByType('posts', { pageSize: 1 });
-  console.log(posts)
   const results = posts.results.map(post => {
     return {
       uid: post.uid,
